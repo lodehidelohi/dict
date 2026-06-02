@@ -25,3 +25,12 @@ Route::get('/profile', function () {
 Route::get('/mySettings', function () {
     return view('mySettings');
 });
+
+use App\Models\Books;
+
+Route::get('/books', function () {
+    $books = Books::paginate(10);
+    return view('books', compact('books'));
+});
+
+Route::get('/books', [App\Http\Controllers\booksController::class, 'index']);

@@ -7,25 +7,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" >
   </head>
     <style>
-        .sidebar-menu .nav-link {
-            color: #333;
-            transition: all 0.2s ease;
-        }
+   .sidebar-menu .nav-link {
+    color: #333;
+    transition: 
+        background-color 0.4s ease-in-out,
+        color 0.4s ease-in-out,
+        border-radius 0.4s ease,
+        transform 0.3s ease,
+        font-size 0.3s ease;
+}
 
-        .sidebar-menu .nav-link.active {
-            background-color: #000;
-            color: #fff !important;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            transform: scale(1.05);
-        }
+.sidebar-menu .nav-link.active {
+    background-color: #000;
+    color: #fff !important;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    transform: scale(1.05);
+    opacity: 1; /* ensures fade-in */
+}
 
-        .sidebar-menu .nav-link:hover {
-            background-color: #212529;
-            color: #fff;
-            border-radius: 8px;
-        }
+.sidebar-menu .nav-link:hover {
+    background-color: #212529;
+    color: #fff;
+    border-radius: 8px;
+    opacity: 0.9; /* subtle fade effect */
+}
+.col-9 {
+    transition: opacity 0.4s ease-in-out;
+}
+
+.col-9.fade-out {
+    opacity: 0;
+}
+
+
     </style>
   <body>
     
