@@ -3,27 +3,41 @@
 use App\Http\Controllers\booksController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Profile;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
+
     if (!session()->has('user_id')) {
         return redirect()->route('login')
             ->withErrors(['login' => 'Please login first.']);
     }
 
-    return view('dashboard');
+    $user = Profile::find(session('user_id'));
+
+    return view('dashboard', compact('user'));
+
 })->name('dashboard');
 
 Route::get('/movies', function () {
     return view('movies');
 });
 
+
 Route::get('/profile', function () {
-    return view('profile');
-});
+
+    if (!session()->has('user_id')) {
+        return redirect()->route('login');
+    }
+
+    $user = Profile::find(session('user_id'));
+
+    return view('profile', compact('user'));
+
+})->name('profile');
 
 Route::get('/mySettings', function () {
     return view('mySettings');
@@ -71,3 +85,8 @@ Route::get('/logout', function () {
     session()->flush();
     return redirect()->route('login')->with('success', 'Logged out successfully.');
 })->name('logout');
+
+
+
+Route::post('/profile', [AuthController::class, 'updateProfile'])
+    ->name('profile.update');

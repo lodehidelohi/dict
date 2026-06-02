@@ -15,31 +15,30 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="fullname" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="fullname" name="fullname" value="John Doe">
+                        <input type="text" class="form-control" id="fullname" name="fullname" value="{{ $user->name }}">
                     </div>
 
                     <div class="col-md-6">
                         <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" value="johndoe">
+                        <input type="text" class="form-control" id="username" name="username" value="{{ $user->username }}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" value="johndoe@example.com">
+                        <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
                     </div>
 
                     <div class="col-md-6">
                         <label for="contact" class="form-label">Contact Number</label>
-                        <input type="text" class="form-control" id="contact" name="contact" value="09123456789">
+                        <input type="text" class="form-control" id="contact" name="contact" value="{{ $user->contact_number }}">
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="address" class="form-label">Address</label>
-                    <textarea class="form-control" id="address" name="address"
-                        rows="3">Tacurong City, Sultan Kudarat</textarea>
+                    <textarea class="form-control" id="address" name="address" rows="3">{{ $user->address ?? '' }}</textarea>
                 </div>
 
                 <hr>
