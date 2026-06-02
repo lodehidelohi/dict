@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\booksController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -7,15 +9,16 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    if (!session()->has('user_id')) {
+        return redirect()->route('login')
+            ->withErrors(['login' => 'Please login first.']);
+    }
+
     return view('dashboard');
 })->name('dashboard');
 
 Route::get('/movies', function () {
     return view('movies');
-});
-
-Route::get('/books', function () {
-    return view('books');
 });
 
 Route::get('/profile', function () {
@@ -26,11 +29,45 @@ Route::get('/mySettings', function () {
     return view('mySettings');
 });
 
-use App\Models\Books;
+// Books Routes
+Route::get('/books', [booksController::class, 'index'])->name('books.index');
+Route::get('/books/create', [booksController::class, 'create'])->name('books.create');
+Route::post('/books/store', [booksController::class, 'store'])->name('books.store');
+Route::get('/books/edit/{id}', [booksController::class, 'edit'])->name('books.edit');
+Route::post('/books/update/{id}', [booksController::class, 'update'])->name('books.update');
+Route::delete('/books/delete/{id}', [booksController::class, 'destroy'])->name('books.delete');
+Route::get('/register', function () {
+    return view('registration');
+})->name('register.form');
 
-Route::get('/books', function () {
-    $books = Books::paginate(10);
-    return view('books', compact('books'));
-});
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('/books', [App\Http\Controllers\booksController::class, 'index']);
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::post('/profile', function () {
+    return back()->with('success', 'Profile updated successfully.');
+})->name('profile.update');
+
+
+Route::get('/login', function () {
+    if (session()->has('user_id')) {
+        return redirect()->route('dashboard')->with('success', 'You are already logged in.');
+    }
+    return view('login');
+})->name('login');
+
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
+Route::post('/logout', function () {
+    session()->forget('user_id');
+    session()->flush();
+    return redirect()->route('login')->with('success', 'Logged out successfully.');
+})->name('logout');
+
+Route::get('/logout', function () {
+    session()->forget('user_id');
+    session()->flush();
+    return redirect()->route('login')->with('success', 'Logged out successfully.');
+})->name('logout');

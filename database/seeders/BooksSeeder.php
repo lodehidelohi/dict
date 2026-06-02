@@ -2,14 +2,13 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Books;
-use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 
 class BooksSeeder extends Seeder
 {
     public function run(): void
     {
-         Books::factory(50)->create();
-        }
+        Books::factory(50)->create();
     }
+}
