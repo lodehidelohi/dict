@@ -4,6 +4,8 @@ use App\Http\Controllers\booksController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Profile;
+use App\Http\Controllers\AuthorController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -90,3 +92,21 @@ Route::get('/logout', function () {
 
 Route::post('/profile', [AuthController::class, 'updateProfile'])
     ->name('profile.update');
+
+
+
+Route::get('/authors', [AuthorController::class, 'index'])->name('authors.index');
+Route::get('/authors/create', [AuthorController::class, 'create'])->name('authors.create');
+Route::post('/authors/store', [AuthorController::class, 'store'])->name('authors.store');
+Route::get('/authors/edit/{id}', [AuthorController::class, 'edit'])->name('authors.edit');
+Route::post('/authors/update/{id}', [AuthorController::class, 'update'])->name('authors.update');
+Route::delete('/authors/delete/{id}', [AuthorController::class, 'destroy'])->name('authors.delete');
+
+use App\Http\Controllers\MovieController;
+
+Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
+Route::get('/movies/create', [MovieController::class, 'create'])->name('movies.create');
+Route::post('/movies/store', [MovieController::class, 'store'])->name('movies.store');
+Route::get('/movies/edit/{id}', [MovieController::class, 'edit'])->name('movies.edit');
+Route::post('/movies/update/{id}', [MovieController::class, 'update'])->name('movies.update');
+Route::delete('/movies/delete/{id}', [MovieController::class, 'destroy'])->name('movies.delete');
